@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Facebook Group Poster",
+  "version": "1.0",
+  "description": "Automate your Facebook group posts with multiline message support. Educational use only—see disclaimers in readme.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.facebook.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+    /* NO "default_popup" here. We'll open a new window via background.js */
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Facebook Multi-Message Group Poster</title>
+  <style>
+    /* Overall layout */
+    html, body {
+      min-width: 920px;
+      font-family: sans-serif;
+      margin: 10px;
+      padding-bottom: 15px;
+    }
+
+    /* Each message row: a <textarea> + remove button side by side */
+    .message-box-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .message-box-row textarea {
+      width: 95%;
+      margin-right: 6px;
+    }
+    /* The remove "X" button beside each text area */
+    .remove-msg-btn {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      padding: 5px 8px;
+    }
+
+    /* Container for message rows with scroll if there's many messages */
+    #messagesContainer {
+      max-height: 150px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    #groupList {
+      width: 100%;
+      height: 60px;
+    }
+
+    button {
+      background: #005CC8;
+      color: #fff;
+      border: 1px solid #005C8;
+      border-radius: 3px;
+      padding: 8px 20px;
+      margin-right: 8px;
+    }
+
+    input:not([type="image" i], [type="range" i], [type="checkbox" i], [type="radio" i]) {
+      text-align: center;
+      width: 40px;
+    }
+
+    /* progress info, progress bar, logs panel from your existing baseline */
+    #progressContainer {
+      width: 100%;
+      background: #eee;
+      height: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    #progressBar {
+      width: 0%;
+      height: 100%;
+      background: #3a9f3a;
+      transition: width 0.3s;
+    }
+
+    #logsPanel {
+      max-height: 150px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 5px;
+      margin-top: 10px;
+      background: #fafafa;
+    }
+    .log-entry.success { color: green; }
+    .log-entry.error { color: red; }
+
+  </style>
+</head>
+<body>
+  <h2>Multi-Message Group Poster</h2>
+
+  <!-- MESSAGES SECTION -->
+  <h3>Messages</h3>
+  <div id="messagesContainer"></div>
+  <button id="addMessageBtn">+ Add Another Message</button>
+
+  <hr />
+
+  <!-- GROUPS SECTION -->
+  <h3>Group URLs (one per line)</h3>
+  <textarea id="groupList"></textarea>
+
+  <hr />
+
+  <!-- DELAY OPTIONS -->
+  <div style="display: flex; background: lightgrey;">
+    <div style="padding: 10px 20px 10px 10px; width: 25%">
+      <label for="baseDelay">Base Delay (seconds):</label>
+      <br><input type="number" id="baseDelay" value="15" />
+    </div>
+    <div style="padding: 10px 20px 10px 10px; width: 25%; display: contents;">
+      <label for="useRandomDelay">
+        <br><input style="width: 15px; height:15px;" type="checkbox" id="useRandomDelay" />
+        Use Random Delay
+      </label>
+    </div>
+    <div style="padding: 10px 20px 10px 10px; width: 25%">
+      <label for="minDelay">Min Delay (seconds):</label>
+      <br><input type="number" id="minDelay" value="10" />
+    </div>
+    <div style="padding: 10px 20px 10px 10px; width: 25%">
+      <label for="maxDelay">Max Delay (seconds):</label>
+      <input type="number" id="maxDelay" value="20" />
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button id="startBtn">Start Posting</button>
+    <button id="stopBtn">Stop Posting</button>
+  </div>
+
+  <!-- PROGRESS INFO -->
+  <div id="progressInfo" style="margin:10px 0; font-weight:bold;"></div>
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+  </div>
+  <div style="margin-bottom:5px;">
+    <span>Next Group: </span><span id="nextGroupSpan"></span>
+  </div>
+
+  <!-- LOGS AREA -->
+  <div id="logsPanel"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
